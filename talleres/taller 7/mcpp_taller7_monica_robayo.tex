@@ -1,0 +1,1210 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{mcpp\_taller7\_monica\_robayo}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{taller-7}{%
+\section{Taller 7}\label{taller-7}}
+
+Métodos Computacionales para Políticas Públicas - URosario
+
+\textbf{Entrega: viernes 3-abr-2020 11:59 PM}
+
+    \textbf{{[}Monica Alejandra Robayo Gonzalez{]}}
+
+{[}monica.robayo@urosario.edu.co{]}
+
+    \hypertarget{instrucciones}{%
+\subsection{Instrucciones:}\label{instrucciones}}
+
+\begin{itemize}
+\tightlist
+\item
+  Guarde una copia de este \emph{Jupyter Notebook} en su computador,
+  idealmente en una carpeta destinada al material del curso.
+\item
+  Modifique el nombre del archivo del \emph{notebook}, agregando al
+  final un guión inferior y su nombre y apellido, separados estos
+  últimos por otro guión inferior. Por ejemplo, mi \emph{notebook} se
+  llamaría: mcpp\_taller7\_santiago\_matallana
+\item
+  Marque el \emph{notebook} con su nombre y e-mail en el bloque verde
+  arriba. Reemplace el texto ``{[}Su nombre acá{]}'' con su nombre y
+  apellido. Similar para su e-mail.
+\item
+  Desarrolle la totalidad del taller sobre este \emph{notebook},
+  insertando las celdas que sea necesario debajo de cada pregunta. Haga
+  buen uso de las celdas para código y de las celdas tipo
+  \emph{markdown} según el caso.
+\item
+  Recuerde salvar periódicamente sus avances.
+\item
+  Cuando termine el taller:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Descárguelo en PDF. Si tiene algún problema con la conversión,
+    descárguelo en HTML.
+  \item
+    Suba todos los archivos a su repositorio en GitHub, en una carpeta
+    destinada exclusivamente para este taller, antes de la fecha y hora
+    límites.
+  \end{enumerate}
+\end{itemize}
+
+(Todos los ejercicios tienen el mismo valor.)
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    Este taller tiene dos partes. Una obligatoria, relativamente fácil, y
+otra voluntaria y más retadora. Los invito a intentar desarrollar el
+taller en su totalidad. (Buen plan para el aislamiento obligatorio.)
+
+    En este taller exploraremos los datos de crimen de Chicago.
+
+Descargue los datos de crimen del Chicago Data Portal solo para el año
+2015
+(https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data).
+
+    \hypertarget{parte-obligatoria}{%
+\subsubsection{Parte obligatoria}\label{parte-obligatoria}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt} 
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{18.0}\PY{p}{,} \PY{l+m+mf}{8.0}\PY{p}{]}
+\PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} R}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{section}{%
+\subsubsection{1.}\label{section}}
+
+Calcule el número de crímenes en cada Community Area en 2015. Haga un
+gráfico de barras que lo ilustre.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{crimes} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Crimes\PYZus{}2015.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{crimes}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+              ID Case Number                    Date                   Block  \textbackslash{}
+0       10201852    HY389096  01/01/2015 12:00:00 AM   008XX N MAPLEWOOD AVE
+1       10060114    HY239140  01/01/2015 12:00:00 AM     069XX S CORNELL AVE
+2       10210454    HY397301  01/01/2015 12:00:00 AM    049XX W WABANSIA AVE
+3       10025440    HY214766  01/01/2015 12:00:00 AM         004XX E 80TH ST
+4       10225520    HY412735  01/01/2015 12:00:00 AM  075XX S BLACKSTONE AVE
+{\ldots}          {\ldots}         {\ldots}                     {\ldots}                     {\ldots}
+258508  10369351    HZ105321  12/31/2015 12:00:00 AM     0000X W RANDOLPH ST
+258509  10365050    HZ100594  12/31/2015 12:00:00 AM      038XX N FREMONT ST
+258510  10364335    HY556149  12/31/2015 12:00:00 AM       037XX W ARGYLE ST
+258511  10371800    HZ106801  12/31/2015 12:00:00 AM       019XX N Hoyne Ave
+258512  10364402    HY556328  12/31/2015 12:00:00 AM  051XX S BLACKSTONE AVE
+
+        IUCR                Primary Type  \textbackslash{}
+0       2825               OTHER OFFENSE
+1       1751  OFFENSE INVOLVING CHILDREN
+2       0266         CRIM SEXUAL ASSAULT
+3       1154          DECEPTIVE PRACTICE
+4       1153          DECEPTIVE PRACTICE
+{\ldots}      {\ldots}                         {\ldots}
+258508  1150          DECEPTIVE PRACTICE
+258509  0890                       THEFT
+258510  1320             CRIMINAL DAMAGE
+258511  1153          DECEPTIVE PRACTICE
+258512  0810                       THEFT
+
+                                    Description     Location Description  \textbackslash{}
+0                       HARASSMENT BY TELEPHONE                APARTMENT
+1                  CRIM SEX ABUSE BY FAM MEMBER                RESIDENCE
+2                                     PREDATORY                RESIDENCE
+3       FINANCIAL IDENTITY THEFT \$300 AND UNDER                RESIDENCE
+4           FINANCIAL IDENTITY THEFT OVER \$ 300                RESIDENCE
+{\ldots}                                         {\ldots}                      {\ldots}
+258508                        CREDIT CARD FRAUD                    OTHER
+258509                            FROM BUILDING  RESIDENCE PORCH/HALLWAY
+258510                               TO VEHICLE                   STREET
+258511      FINANCIAL IDENTITY THEFT OVER \$ 300                      NaN
+258512                                OVER \$500                   STREET
+
+        Arrest  Domestic  {\ldots}  Ward  Community Area  FBI Code  X Coordinate  \textbackslash{}
+0        False      True  {\ldots}     1              24        26     1159250.0
+1        False     False  {\ldots}     5              43        20     1188551.0
+2        False      True  {\ldots}    37              25        02           NaN
+3        False      True  {\ldots}     6              44        11     1180776.0
+4        False     False  {\ldots}     5              43        11           NaN
+{\ldots}        {\ldots}       {\ldots}  {\ldots}   {\ldots}             {\ldots}       {\ldots}           {\ldots}
+258508   False     False  {\ldots}    42              32        11     1176135.0
+258509   False     False  {\ldots}    46               6        06     1169575.0
+258510   False     False  {\ldots}    39              14        14     1150389.0
+258511   False     False  {\ldots}    32              22        11     1162044.0
+258512   False     False  {\ldots}     4              41        06     1186787.0
+
+       Y Coordinate  Year              Updated On   Latitude  Longitude  \textbackslash{}
+0         1905420.0  2015  08/20/2015 04:17:37 PM  41.896198 -87.690553
+1         1859284.0  2015  08/17/2015 03:03:40 PM  41.768946 -87.584415
+2               NaN  2015  08/31/2015 03:43:09 PM        NaN        NaN
+3         1852066.0  2015  08/17/2015 03:03:40 PM  41.749321 -87.613135
+4               NaN  2015  09/10/2015 11:43:14 AM        NaN        NaN
+{\ldots}             {\ldots}   {\ldots}                     {\ldots}        {\ldots}        {\ldots}
+258508    1901285.0  2015  01/15/2016 11:08:45 AM  41.884487 -87.628663
+258509    1925758.0  2015  01/07/2016 04:14:34 PM  41.951788 -87.652038
+258510    1932961.0  2015  01/07/2016 04:14:34 PM  41.971950 -87.722377
+258511    1913082.0  2015  01/15/2016 11:08:45 AM  41.917165 -87.680077
+258512    1871326.0  2015  01/07/2016 04:14:34 PM  41.802032 -87.590499
+
+                             Location
+0       (41.896197984, -87.690552821)
+1       (41.768945532, -87.584414851)
+2                                 NaN
+3       (41.749320815, -87.613135423)
+4                                 NaN
+{\ldots}                               {\ldots}
+258508  (41.884487451, -87.628662734)
+258509  (41.951787958, -87.652037805)
+258510  (41.971950353, -87.722376878)
+258511  (41.917165184, -87.680076699)
+258512   (41.802031713, -87.59049938)
+
+[258513 rows x 22 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{crimes\PYZus{}by\PYZus{}community} \PY{o}{=} \PY{n}{crimes}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Community Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{community\PYZus{}crime\PYZus{}count} \PY{o}{=} \PY{n}{crimes\PYZus{}by\PYZus{}community}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n}{community\PYZus{}crime\PYZus{}count}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+                  ID
+Community Area
+1               3519
+2               3059
+3               3585
+4               1747
+5               1375
+{\ldots}              {\ldots}
+73              3109
+74               608
+75              2052
+76              1622
+77              2209
+
+[77 rows x 1 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{community\PYZus{}crime\PYZus{}count}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{section}{%
+\subsubsection{2.}\label{section}}
+
+Ordene las Community Areas de acuerdo con el número de crímenes. ¿Qué
+Community Area (por nombre, idealmente) presenta el mayor número de
+crímenes? ¿El menor?
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{names}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Census\PYZus{}Data\PYZus{}\PYZhy{}\PYZus{}Selected\PYZus{}socioeconomic\PYZus{}indicators\PYZus{}in\PYZus{}Chicago\PYZus{}\PYZus{}2008\PYZus{}\PYZus{}\PYZus{}2012.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{names}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Community Area Number}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Community Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{names}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+    Community Area COMMUNITY AREA NAME  PERCENT OF HOUSING CROWDED  \textbackslash{}
+0              1.0         Rogers Park                         7.7
+1              2.0          West Ridge                         7.8
+2              3.0              Uptown                         3.8
+3              4.0      Lincoln Square                         3.4
+4              5.0        North Center                         0.3
+..             {\ldots}                 {\ldots}                         {\ldots}
+73            74.0     Mount Greenwood                         1.0
+74            75.0         Morgan Park                         0.8
+75            76.0              O'Hare                         3.6
+76            77.0           Edgewater                         4.1
+77             NaN             CHICAGO                         4.7
+
+    PERCENT HOUSEHOLDS BELOW POVERTY  PERCENT AGED 16+ UNEMPLOYED  \textbackslash{}
+0                               23.6                          8.7
+1                               17.2                          8.8
+2                               24.0                          8.9
+3                               10.9                          8.2
+4                                7.5                          5.2
+..                               {\ldots}                          {\ldots}
+73                               3.4                          8.7
+74                              13.2                         15.0
+75                              15.4                          7.1
+76                              18.2                          9.2
+77                              19.7                         12.9
+
+    PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA  \textbackslash{}
+0                                           18.2
+1                                           20.8
+2                                           11.8
+3                                           13.4
+4                                            4.5
+..                                           {\ldots}
+73                                           4.3
+74                                          10.8
+75                                          10.9
+76                                           9.7
+77                                          19.5
+
+    PERCENT AGED UNDER 18 OR OVER 64  PER CAPITA INCOME   HARDSHIP INDEX
+0                               27.5               23939            39.0
+1                               38.5               23040            46.0
+2                               22.2               35787            20.0
+3                               25.5               37524            17.0
+4                               26.2               57123             6.0
+..                               {\ldots}                 {\ldots}             {\ldots}
+73                              36.8               34381            16.0
+74                              40.3               27149            30.0
+75                              30.3               25828            24.0
+76                              23.8               33385            19.0
+77                              33.5               28202             NaN
+
+[78 rows x 9 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{14}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{districName}\PY{o}{=}\PY{n}{crimes}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{names}\PY{p}{,}\PY{n}{on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Community Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{15}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{crimes\PYZus{}by\PYZus{}community\PYZus{}districName} \PY{o}{=} \PY{n}{districName}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{COMMUNITY AREA NAME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{community\PYZus{}crimes\PYZus{}count} \PY{o}{=} \PY{n}{crimes\PYZus{}by\PYZus{}community\PYZus{}districName}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+\PY{n}{community\PYZus{}crimes\PYZus{}count}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+                       ID
+COMMUNITY AREA NAME
+Albany Park          2501
+Archer Heights        986
+Armour Square        1057
+Ashburn              2279
+Auburn Gresham       7733
+{\ldots}                   {\ldots}
+West Lawn            2027
+West Pullman         3949
+West Ridge           3059
+West Town            6959
+Woodlawn             3665
+
+[77 rows x 1 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{community\PYZus{}crimes\PYZus{}count}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+                        ID
+COMMUNITY AREA NAME
+Austin               17020
+Near North Side       8920
+South Shore           8906
+North Lawndale        8039
+Humboldt park         8015
+{\ldots}                    {\ldots}
+Montclaire             572
+Hegewisch              506
+Forest Glen            444
+Burnside               380
+Edison Park            254
+
+[77 rows x 1 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    R/. La Community Area con mayor numero de crimenes es ``AUSTIN'' y la de
+menor numero de crimenes es ``EDISON PARK'', para el año 2015.
+
+    \hypertarget{section}{%
+\subsubsection{3.}\label{section}}
+
+Cree una tabla cuyas filas sean días del año (yyyy-mm-dd) y las columnas
+las 77 Community Areas. En cada campo de la tabla deberá haber el
+correspondiente número de crímenes. Seleccione algunas Community Areas
+que le llamen la atención y haga un gráfico de serie de tiempo.
+
+Pista: El siguiente código puede serle útil.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{21}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{crimes} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crimes\PYZus{}2015.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{23}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Create function to strip time from date field, and use it to create another column}
+\PY{k}{def} \PY{n+nf}{to\PYZus{}day}\PY{p}{(}\PY{n}{timestamp}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{timestamp}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{minute}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{hour}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{second}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+
+\PY{n}{crimes}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{crimes}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{to\PYZus{}day}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{27}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{crimes\PYZus{}by\PYZus{}community\PYZus{}day} \PY{o}{=} \PY{n}{crimes}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Community Area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} 
+\PY{n}{crimes\PYZus{}by\PYZus{}community\PYZus{}day\PYZus{}count} \PY{o}{=} \PY{n}{crimes\PYZus{}by\PYZus{}community\PYZus{}day}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+\PY{n}{crimes\PYZus{}by\PYZus{}community\PYZus{}day\PYZus{}count}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{27}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+Day         Community Area
+2015-01-01  1                 13
+            2                  7
+            3                 11
+            4                  4
+            5                  5
+                              ..
+2015-12-31  6                  1
+            14                 1
+            22                 1
+            32                 1
+            41                 1
+Name: ID, Length: 26803, dtype: int64
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{28}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{crimes\PYZus{}by\PYZus{}community\PYZus{}day\PYZus{}count}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{28}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+                           ID
+Day        Community Area
+2015-01-01 1               13
+           2                7
+           3               11
+           4                4
+           5                5
+{\ldots}                        ..
+2015-12-31 6                1
+           14               1
+           22               1
+           32               1
+           41               1
+
+[26803 rows x 1 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{30}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{community\PYZus{}crime\PYZus{}byday} \PY{o}{=} \PY{n}{crimes\PYZus{}by\PYZus{}community\PYZus{}day\PYZus{}count}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Community Area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+\PY{n}{community\PYZus{}crime\PYZus{}byday}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{30}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+Community Area    1     2     3     4    5     6     7     8    9    10  {\ldots}  \textbackslash{}
+Day                                                                      {\ldots}
+2015-01-01      13.0   7.0  11.0   4.0  5.0  22.0  12.0  43.0  1.0  5.0  {\ldots}
+2015-01-02       5.0   9.0   8.0   3.0  2.0  10.0   9.0  27.0  NaN  2.0  {\ldots}
+2015-01-03       7.0  11.0   9.0   7.0  4.0   6.0  11.0  27.0  1.0  3.0  {\ldots}
+2015-01-04      12.0   7.0   9.0  10.0  3.0  15.0   5.0  16.0  1.0  4.0  {\ldots}
+2015-01-05       6.0   7.0   5.0   4.0  5.0  15.0   7.0  11.0  1.0  3.0  {\ldots}
+{\ldots}              {\ldots}   {\ldots}   {\ldots}   {\ldots}  {\ldots}   {\ldots}   {\ldots}   {\ldots}  {\ldots}  {\ldots}  {\ldots}
+2015-12-27      14.0   8.0   6.0   3.0  1.0  16.0  11.0  32.0  NaN  1.0  {\ldots}
+2015-12-28       7.0   8.0   5.0   2.0  2.0  10.0   8.0  19.0  NaN  3.0  {\ldots}
+2015-12-29       6.0   7.0  12.0   8.0  3.0   8.0   5.0  25.0  NaN  1.0  {\ldots}
+2015-12-30       5.0   8.0   7.0   4.0  1.0  11.0  15.0  27.0  1.0  6.0  {\ldots}
+2015-12-31       NaN   NaN   NaN   NaN  NaN   1.0   NaN   NaN  NaN  NaN  {\ldots}
+
+Community Area    68    69   70    71   72    73   74   75   76   77
+Day
+2015-01-01      29.0  23.0  9.0  44.0  2.0   8.0  2.0  5.0  6.0  8.0
+2015-01-02      12.0  21.0  5.0  17.0  1.0  11.0  1.0  2.0  6.0  5.0
+2015-01-03      23.0  12.0  8.0  18.0  NaN   8.0  1.0  7.0  3.0  3.0
+2015-01-04      13.0  15.0  9.0  12.0  1.0   5.0  NaN  1.0  6.0  1.0
+2015-01-05      16.0  12.0  8.0  17.0  NaN   5.0  2.0  2.0  7.0  5.0
+{\ldots}              {\ldots}   {\ldots}  {\ldots}   {\ldots}  {\ldots}   {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}
+2015-12-27      11.0  19.0  3.0  26.0  2.0   8.0  2.0  1.0  4.0  2.0
+2015-12-28      12.0  22.0  9.0  14.0  2.0   6.0  2.0  2.0  3.0  9.0
+2015-12-29      18.0  16.0  7.0  18.0  NaN   8.0  3.0  2.0  2.0  4.0
+2015-12-30      11.0  23.0  6.0  14.0  2.0   8.0  1.0  7.0  5.0  5.0
+2015-12-31       NaN   NaN  NaN   NaN  NaN   NaN  NaN  NaN  NaN  NaN
+
+[365 rows x 77 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{37}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}Community Areas: las tres primeras Community areas con mayores crimenes: Austin, Near North Side y South Shore}
+\PY{n}{community\PYZus{}crime\PYZus{}byday}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{43}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{parte-voluntaria}{%
+\subsubsection{Parte voluntaria}\label{parte-voluntaria}}
+
+    Descargue la base de datos de información socioeconómica
+(https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2).
+
+    \hypertarget{section}{%
+\subsubsection{4.}\label{section}}
+
+Cree una tabla que agregue el número de crímenes por Community Area. Una
+esa tabla con la de datos socioeconómicos y cree un ``scatter plot'' de
+número de crímenes vs ingreso per cápita. Explique la relación en
+palabras.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{112}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{crimes\PYZus{}by\PYZus{}community2} \PY{o}{=} \PY{n}{crimes}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Community Area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+\PY{n}{community\PYZus{}crimes\PYZus{}count2} \PY{o}{=} \PY{n}{crimes\PYZus{}by\PYZus{}community2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+\PY{n}{table\PYZus{}crimes\PYZus{}by\PYZus{}community\PYZus{}area}\PY{o}{=}\PY{n}{community\PYZus{}crimes\PYZus{}count2}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{113}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} cree la tabla de crimenes por community area}
+\PY{n}{table\PYZus{}crimes\PYZus{}by\PYZus{}community\PYZus{}area} 
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{113}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+                  ID
+Community Area
+1               3519
+2               3059
+3               3585
+4               1747
+5               1375
+{\ldots}              {\ldots}
+73              3109
+74               608
+75              2052
+76              1622
+77              2209
+
+[77 rows x 1 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{114}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}adjunte la base de datos como percapita}
+\PY{n}{percapita}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Census\PYZus{}Data\PYZus{}\PYZhy{}\PYZus{}Selected\PYZus{}socioeconomic\PYZus{}indicators\PYZus{}in\PYZus{}Chicago\PYZus{}\PYZus{}2008\PYZus{}\PYZus{}\PYZus{}2012.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{115}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}cambie el nombre de la columna \PYZdq{}Community Area Number\PYZdq{} por \PYZdq{}Community Area\PYZdq{}}
+\PY{n}{percapita}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Community Area Number}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Community Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{116}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{percapita} 
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{116}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+    Community Area COMMUNITY AREA NAME  PERCENT OF HOUSING CROWDED  \textbackslash{}
+0              1.0         Rogers Park                         7.7
+1              2.0          West Ridge                         7.8
+2              3.0              Uptown                         3.8
+3              4.0      Lincoln Square                         3.4
+4              5.0        North Center                         0.3
+..             {\ldots}                 {\ldots}                         {\ldots}
+73            74.0     Mount Greenwood                         1.0
+74            75.0         Morgan Park                         0.8
+75            76.0              O'Hare                         3.6
+76            77.0           Edgewater                         4.1
+77             NaN             CHICAGO                         4.7
+
+    PERCENT HOUSEHOLDS BELOW POVERTY  PERCENT AGED 16+ UNEMPLOYED  \textbackslash{}
+0                               23.6                          8.7
+1                               17.2                          8.8
+2                               24.0                          8.9
+3                               10.9                          8.2
+4                                7.5                          5.2
+..                               {\ldots}                          {\ldots}
+73                               3.4                          8.7
+74                              13.2                         15.0
+75                              15.4                          7.1
+76                              18.2                          9.2
+77                              19.7                         12.9
+
+    PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA  \textbackslash{}
+0                                           18.2
+1                                           20.8
+2                                           11.8
+3                                           13.4
+4                                            4.5
+..                                           {\ldots}
+73                                           4.3
+74                                          10.8
+75                                          10.9
+76                                           9.7
+77                                          19.5
+
+    PERCENT AGED UNDER 18 OR OVER 64  PER CAPITA INCOME   HARDSHIP INDEX
+0                               27.5               23939            39.0
+1                               38.5               23040            46.0
+2                               22.2               35787            20.0
+3                               25.5               37524            17.0
+4                               26.2               57123             6.0
+..                               {\ldots}                 {\ldots}             {\ldots}
+73                              36.8               34381            16.0
+74                              40.3               27149            30.0
+75                              30.3               25828            24.0
+76                              23.8               33385            19.0
+77                              33.5               28202             NaN
+
+[78 rows x 9 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{117}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}para unir la tabla a la base datos \PYZdq{}percapita\PYZdq{} utilizo \PYZdq{}pd.merge\PYZdq{}}
+\PY{n}{pib\PYZus{}percapita\PYZus{}income} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{percapita}\PY{p}{,} \PY{n}{table\PYZus{}crimes\PYZus{}by\PYZus{}community\PYZus{}area}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Community Area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{118}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} al ejecutar el codigo se evidencia la columna \PYZdq{}ID\PYZdq{}}
+\PY{n}{pib\PYZus{}percapita\PYZus{}income}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{118}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+    Community Area COMMUNITY AREA NAME  PERCENT OF HOUSING CROWDED  \textbackslash{}
+0              1.0         Rogers Park                         7.7
+1              2.0          West Ridge                         7.8
+2              3.0              Uptown                         3.8
+3              4.0      Lincoln Square                         3.4
+4              5.0        North Center                         0.3
+..             {\ldots}                 {\ldots}                         {\ldots}
+72            73.0   Washington Height                         1.1
+73            74.0     Mount Greenwood                         1.0
+74            75.0         Morgan Park                         0.8
+75            76.0              O'Hare                         3.6
+76            77.0           Edgewater                         4.1
+
+    PERCENT HOUSEHOLDS BELOW POVERTY  PERCENT AGED 16+ UNEMPLOYED  \textbackslash{}
+0                               23.6                          8.7
+1                               17.2                          8.8
+2                               24.0                          8.9
+3                               10.9                          8.2
+4                                7.5                          5.2
+..                               {\ldots}                          {\ldots}
+72                              16.9                         20.8
+73                               3.4                          8.7
+74                              13.2                         15.0
+75                              15.4                          7.1
+76                              18.2                          9.2
+
+    PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA  \textbackslash{}
+0                                           18.2
+1                                           20.8
+2                                           11.8
+3                                           13.4
+4                                            4.5
+..                                           {\ldots}
+72                                          13.7
+73                                           4.3
+74                                          10.8
+75                                          10.9
+76                                           9.7
+
+    PERCENT AGED UNDER 18 OR OVER 64  PER CAPITA INCOME   HARDSHIP INDEX    ID
+0                               27.5               23939            39.0  3519
+1                               38.5               23040            46.0  3059
+2                               22.2               35787            20.0  3585
+3                               25.5               37524            17.0  1747
+4                               26.2               57123             6.0  1375
+..                               {\ldots}                 {\ldots}             {\ldots}   {\ldots}
+72                              42.6               19713            48.0  3109
+73                              36.8               34381            16.0   608
+74                              40.3               27149            30.0  2052
+75                              30.3               25828            24.0  1622
+76                              23.8               33385            19.0  2209
+
+[77 rows x 10 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{119}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} aqui confirmo la existencia de la columna \PYZdq{}ID\PYZdq{}}
+\PY{n}{pib\PYZus{}percapita\PYZus{}income}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{119}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+Index(['Community Area', 'COMMUNITY AREA NAME', 'PERCENT OF HOUSING CROWDED',
+       'PERCENT HOUSEHOLDS BELOW POVERTY', 'PERCENT AGED 16+ UNEMPLOYED',
+       'PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA',
+       'PERCENT AGED UNDER 18 OR OVER 64', 'PER CAPITA INCOME ',
+       'HARDSHIP INDEX', 'ID'],
+      dtype='object')
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{135}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}realizo una indexacion con la columna \PYZdq{}PER CAPITA INCOME\PYZdq{} y \PYZdq{}ID\PYZdq{} a la cual llamé \PYZdq{}crimes\PYZus{}vs\PYZus{}percapita\PYZus{}income\PYZdq{}}
+\PY{n}{crimes\PYZus{}vs\PYZus{}percapita\PYZus{}income} \PY{o}{=} \PY{n}{pib\PYZus{}percapita\PYZus{}income}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{78}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PER CAPITA INCOME }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{136}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}al ejecutar el codigo se evidencia \PYZdq{}crimes\PYZus{}vs\PYZus{}percapita\PYZus{}income\PYZdq{}}
+\PY{n}{crimes\PYZus{}vs\PYZus{}percapita\PYZus{}income}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{136}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+    PER CAPITA INCOME     ID
+1                23040  3059
+2                35787  3585
+3                37524  1747
+4                57123  1375
+5                60058  5495
+..                 {\ldots}   {\ldots}
+72               19713  3109
+73               34381   608
+74               27149  2052
+75               25828  1622
+76               33385  2209
+
+[76 rows x 2 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{140}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}realizo el scatter plot con \PYZdq{}crimes\PYZus{}vs\PYZus{}percapita\PYZus{}income\PYZdq{}}
+\PY{n}{my\PYZus{}plot} \PY{o}{=} \PY{n}{crimes\PYZus{}vs\PYZus{}percapita\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PER CAPITA INCOME }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scatter}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Comentario: se evidencia que la mayor concentración de crimenes se da en
+aquellas areas donde el ingreso per capita oscila entre 10.000 y 30.000
+dolares, es decir en aquella población donde sus ingresos en promedio no
+son relativamente altos; y a medida que aumenta el ingreso percapita
+disminuye la concentración de crimenes registrados.
+
+Con ello, superficialmente se puede evidenciar que a mayor ingreso
+percapita, menor numero de concentracion de crimenes se registran, y a
+menor ingreso percapita se registra una mayor concentración de numero de
+crimenes. Sin embargo, no es prudente afirmar la existencia de alguna
+relación perfecta entrega ambas variables, toda vez que probablemente
+existan otras variables que pueden explicar el efecto causal.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
