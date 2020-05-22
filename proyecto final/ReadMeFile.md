@@ -80,51 +80,68 @@
 
 ## Hallazgos Encontrados 📄 📌
 
-La modalidad de Contratación que más se adjudica es la Contratación Directa, seguida de Régimen Especial y Mínima Cuantía.
+*Las modalidades de Contratación que más se adjudica son :Contratación Directa, seguida de Régimen Especial y Mínima Cuantía.*
 
-Los contratos que con más frecuencia son adjudicados: Servicios de aprovisionamiento, Suministros y Compraventas. 
+*Los contratos que con más frecuencia son adjudicados: Servicios de aprovisionamiento, Suministros y Compraventas.*
     
-Los Departamentos que más adjudican procesos son: Bogotá, Antioquía y Valle del Cauca. Entre los más rezagados se encuentran Guaviere, Guanía y Vaupés.
+*Los Departamentos que más adjudican procesos son: Bogotá, Antioquía y Valle del Cauca. Entre los más rezagados se encuentran Guaviare, Guainía y Vaupés.*
 
-De acuerdo a la Serie de Tiempo, se ha venido avanzando en el número de procesos adjudicados por día desde 2018 hasta la fecha. La modalidad que mayoritariamente ha estado en cabeza es la Contratación Directa. 
+*De acuerdo a la Serie de Tiempo, se ha venido avanzando en el número de procesos adjudicados por día desde 2018 hasta la fecha. La modalidad que mayoritariamente ha estado en cabeza es la Contratación Directa.* 
 
-Otras modalidades importantes que se han adjudicado con más frecuencia desde el años 2017, son: Mínima Cuantía, Selección abreviada de menor cuantía, Selección abreviada subasta inversa, Licitación pública. Siendo más Mínimas que Licitaciones.
+*Otras modalidades importantes que se han adjudicado con más frecuencia desde el año 2017, son: Mínima Cuantía, Selección abreviada de menor cuantía, Selección abreviada subasta inversa, Licitación pública. Siendo más Mínimas que Licitaciones.*
 
-Se contrata por Madalidad de Contratación a nivel Nacional por: Minima Cuantía, Contratacion directa, Licitacion, Subasta y seleccion abrevidad. A nivel territorial por la modalidad de Regimen especial.
+*Se contrata por Modalidad de Contratación a nivel Nacional por: Minima Cuantía, Contratacion directa, Licitacion, Subasta y seleccion abrevidad. A nivel territorial por la modalidad de Regimen especial.*
 
-Las Modalidades que tienen mayores apropiaciones y por tanto se gastan más recursos son: Contratación régimen especial, Contratación Directa y Licitación Pública. 
+*Las Modalidades que tienen mayores apropiaciones y por tanto se gastan más recursos son: Contratación régimen especial, Contratación Directa y Licitación Pública.* 
 
-Se evidencia nodos...
+*En el análisis de redes, se puede evidenciar que existe relación de las entidades estatales con ciertos tipos de proveedores.La primera red pertenece a orden nacional, la segunda del Ejercito Nacional y la última a nivel territorial*
 
 
 
 ![Modalidades.jpg](attachment:Modalidades.jpg)
 
 
+
+
 ![TipoContrato.jpg](attachment:TipoContrato.jpg)
+
+
 
 ![Departamento.jpg](attachment:Departamento.jpg)
 
-![Contratosporaño.jpg](attachment:Contratosporaño.jpg)
 
-![otrasporaño.jpg](attachment:otrasporaño.jpg)
+
+![Contratospora%C3%B1o.jpg](attachment:Contratospora%C3%B1o.jpg)
+
+
+![otraspora%C3%B1o.jpg](attachment:otraspora%C3%B1o.jpg)
+
 
 ![minima_orden.jpg](attachment:minima_orden.jpg)
 
+
 ![directa_orden.jpg](attachment:directa_orden.jpg)
 
-![licitacion_orden.jpg](attachment:licitacion_orden.jpg)
-
-![subasta_orden.jpg](attachment:subasta_orden.jpg)
 
 ![abreviada_orden.jpg](attachment:abreviada_orden.jpg)
 
+
+![licitacion_orden.jpg](attachment:licitacion_orden.jpg)
+
+
+![subasta_orden.jpg](attachment:subasta_orden.jpg)
+
+
 ![especial_orden.jpg](attachment:especial_orden.jpg)
+
 
 ![monto_modalidad.jpg](attachment:monto_modalidad.jpg)
 
-![rednacional.jpg.jpg](attachment:rednacional.jpg.jpg)
 
-![redterritorial.jpg](attachment:redterritorial.jpg)
+![rednacional.png](attachment:rednacional.png)
 
-![redejercito.jpg](attachment:redejercito.jpg)
+
+![redejercito.png](attachment:redejercito.png)
+
+
+![redterri.png](attachment:redterri.png)
